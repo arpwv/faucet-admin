@@ -166,7 +166,9 @@ const listUser = async(req, options) => {
       location: options.location,
       showActions: options.showActions,
       title: options.title,
-      users: users
+      users: users,
+      maxPage: parseInt(count / elements) + 1,
+      totalElements: count,
     }
   };
 };

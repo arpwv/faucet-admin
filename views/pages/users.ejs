@@ -48,22 +48,41 @@
     <% if(page > 1) { %>
         <li class="page-item"><a class="page-link" href="/<%= location %>?page=<%= (page-1) %>">Previous</a></li>
     <% } %>
+    <li class="nav-current-page">
+        <strong><%= page %></strong>
+    </li>
     <% if (showLast) { %>
         <li class="page-item"><a class="page-link" href="/<%= location %>?page=<%= (page + 1)  %>">Next</a></li>
     <% } %>
+    <li class="nav-page">
+        <form onsubmit="javascript:goToPage();return false;">
+            go to page: <input type="text" id="page" /> / <%= maxPage %>
+        </form>
+    </li>
 </ul>
 </nav>
+<strong>
+    Total: <%= totalElements %> users
+</strong>
 <% if(showActions) { %>
 <% include ../components/user-modal %>
 <% include ../components/result-modal %>
 <script type="text/javascript">
-  function toggleAll() {
-    var status = $('#toggleAll').is(':checked');
-    $('input[type="checkbox"]').each(
-      function(o) {
-        $(this).prop('checked',status);
-      }
-    );
-  }
+    function toggleAll() {
+        var status = $('#toggleAll').is(':checked');
+        $('input[type="checkbox"]').each(
+          function(o) {
+            $(this).prop('checked',status);
+          }
+        );
+    }
 </script>
 <% } %>
+<script type="text/javascript">
+    function goToPage() {
+        var page = $('#page').val();
+        if(parseInt(page) <= parseInt(<%= maxPage %>)) {
+            window.location = '/<%= location %>?page=' + page;
+        }
+    }
+</script>
