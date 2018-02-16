@@ -46,19 +46,35 @@
 <nav aria-label="Page navigation example">
 <ul class="pagination">
     <% if(page > 1) { %>
-        <li class="page-item"><a class="page-link" href="/<%= location %>?page=<%= (page-1) %>">Previous</a></li>
+        <li class="page-item"><a class="page-link%>" href="/<%= location %>?page=<%= (page-1) %>">Previous</a></li>
     <% } %>
-    <li class="nav-current-page">
-        <strong><%= page %></strong>
-    </li>
+    <% for(var i = 1; i <= 2; i += 1){%>
+        <li class="page-item <% if(page === i){%>active<%}%>"><a class="page-link" href="/<%= location %>?page=<%= i %>"><%= i %></a></li>
+    <% } %>
+    <% if(Math.max(3, Math.min(page - 2, maxPage - 6)) > 3) { %>
+        <li class="page-item page-separator">...</li>
+    <% } %>
+    <% if(maxPage > 2) {
+        for(var i = Math.max(3, Math.min(page - 2, maxPage - 6)); i <= Math.min(maxPage - 3,Math.max(page + 2, 5)); i += 1){
+    %>
+            <li class="page-item <% if(page === i){%>active<%}%>"><a class="page-link" href="/<%= location %>?page=<%= i %>"><%= i %></a></li>
+    <%  }
+       }
+    %>
+    <% if(page < maxPage - 5) { %>
+        <li class="page-item page-separator">...</li>
+    <% } %>
+    <%
+        if(maxPage > 2) {
+            for(var i = Math.max(3,maxPage - 2); i <= maxPage; i += 1){
+    %>
+                <li class="page-item <% if(page === i){%>active<%}%>"><a class="page-link" href="/<%= location %>?page=<%= i %>"><%= i %></a></li>
+    <% }
+            }
+    %>
     <% if (showLast) { %>
         <li class="page-item"><a class="page-link" href="/<%= location %>?page=<%= (page + 1)  %>">Next</a></li>
     <% } %>
-    <li class="nav-page">
-        <form onsubmit="javascript:goToPage();return false;">
-            go to page: <input type="text" id="page" /> / <%= maxPage %>
-        </form>
-    </li>
 </ul>
 </nav>
 <strong>

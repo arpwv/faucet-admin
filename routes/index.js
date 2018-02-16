@@ -167,7 +167,7 @@ const listUser = async(req, options) => {
       showActions: options.showActions,
       title: options.title,
       users: users,
-      maxPage: parseInt(count / elements) + 1,
+      maxPage: Math.round(count / elements),
       totalElements: count,
     }
   };
