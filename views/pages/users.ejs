@@ -48,7 +48,7 @@
     <% if(page > 1) { %>
         <li class="page-item"><a class="page-link%>" href="/<%= location %>?page=<%= (page-1) %>">Previous</a></li>
     <% } %>
-    <% for(var i = 1; i <= 2; i += 1){%>
+    <% for(var i = 1; i <= Math.min(2, maxPage); i += 1){%>
         <li class="page-item <% if(page === i){%>active<%}%>"><a class="page-link" href="/<%= location %>?page=<%= i %>"><%= i %></a></li>
     <% } %>
     <% if(Math.max(3, Math.min(page - 2, maxPage - 6)) > 3) { %>
